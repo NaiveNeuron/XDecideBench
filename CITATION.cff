@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use XDecideBench, please cite the paper."
+title: "XDecideBench"
+abstract: "A multilingual benchmark of Typed Decision Models and confidence policies: nine suites in 122 languages with 88,425 texts and 153,875 typed questions."
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/NaiveNeuron/XDecideBench"
+authors:
+  - family-names: "Šuppa"
+    given-names: "Marek"
+    affiliation: "Comenius University in Bratislava"
+  - family-names: "Kopčan"
+    given-names: "Jaroslav"
+    affiliation: "Kempelen Institute of Intelligent Technologies"
+keywords:
+  - multilingual benchmark
+  - typed decision models
+  - confidence calibration
+  - selective prediction
+  - cross-lingual transfer
+  - low-resource languages
+preferred-citation:
+  type: generic
+  title: "XDecideBench: Evaluating Typed Decision Models and Confidence Policies Across Languages"
+  authors:
+    - family-names: "Šuppa"
+      given-names: "Marek"
+    - family-names: "Kopčan"
+      given-names: "Jaroslav"
+  year: 2026
+  month: 11
+  identifiers:
+    - type: other
+      value: "arXiv:2611.01370"
+  url: "https://arxiv.org/abs/2611.01370"

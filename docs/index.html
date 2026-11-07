@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XDecideBench: Typed Decision Models Across 122 Languages</title>
+<meta name="description" content="A benchmark of eleven Typed Decision Models, including Jev, Clef and pplx-decider, on nine suites in 122 languages, with tests of English-fitted confidence thresholds.">
+<link rel="canonical" href="https://naiveneuron.github.io/XDecideBench/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XDecideBench: Typed Decision Models and Confidence Policies Across 122 Languages">
+<meta property="og:description" content="A benchmark of eleven Typed Decision Models, including Jev, Clef and pplx-decider, on nine suites in 122 languages, with tests of English-fitted confidence thresholds.">
+<meta property="og:url" content="https://naiveneuron.github.io/XDecideBench/">
+<meta property="og:site_name" content="XDecideBench">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XDecideBench: Typed Decision Models and Confidence Policies Across 122 Languages">
+<meta name="twitter:description" content="A benchmark of eleven Typed Decision Models, including Jev, Clef and pplx-decider, on nine suites in 122 languages, with tests of English-fitted confidence thresholds.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "XDecideBench: Evaluating Typed Decision Models and Confidence Policies Across Languages",
+  "name": "XDecideBench: Evaluating Typed Decision Models and Confidence Policies Across Languages",
+  "abstract": "Applications use Typed Decision Models to route and moderate text in many languages, and they often act only on decisions above a confidence threshold. We introduce XDecideBench, a benchmark of nine suites in 122 languages with 88,425 texts and 153,875 typed questions. All suites share one scoring contract, and we report aligned, locally labelled and native items separately. Model rankings change from suite to suite. The model that is best in English, chosen in hindsight, loses significantly in about a quarter of the suite-language cells, and on Burmese Belebele it falls far behind the best model. Three open models fine-tuned for typed decisions beat the Qwen models they were built from in all twelve development languages. When the Qwen models are run locally, a pre-registered held-out cohort confirms that the accuracy gain is larger in the four languages with the least web text than in the six with the most. In both sets of languages, however, fine-tuning fixes a similar share of the base model's errors, so the larger gain may reflect weaker base models. A confidence threshold set on English data to allow 5% errors exceeds that error rate on XNLI, even in German and French.",
+  "datePublished": "2026-11-01",
+  "inLanguage": "en",
+  "url": "https://naiveneuron.github.io/XDecideBench/",
+  "mainEntityOfPage": "https://naiveneuron.github.io/XDecideBench/",
+  "sameAs": [
+    "https://arxiv.org/abs/2611.01370"
+  ],
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "arXiv",
+    "value": "2611.01370"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Marek Šuppa",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "Comenius University in Bratislava"
+        },
+        {
+          "@type": "Organization",
+          "name": "Cisco Systems"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Jaroslav Kopčan",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Kempelen Institute of Intelligent Technologies"
+      }
+    }
+  ],
+  "keywords": [
+    "multilingual benchmark",
+    "Typed Decision Models",
+    "Jev",
+    "confidence calibration",
+    "selective prediction",
+    "conformal prediction",
+    "cross-lingual transfer",
+    "low-resource languages",
+    "Brier skill score"
+  ],
+  "about": [
+    "Multilingual evaluation",
+    "Text classification",
+    "Intent routing",
+    "Content moderation"
+  ],
+  "isAccessibleForFree": true
+}
+</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5d5a53;--line:#dedad0;--accent:#1f5f8b;--band:#f1eee6;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#ecebe6;--muted:#a8a59c;--line:#34332f;--accent:#7fb6dc;--band:#20201d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif}
+main{max-width:52rem;margin:0 auto;padding:2.5rem 16px 4rem}
+h1{font-size:2.1rem;line-height:1.2;margin:0 0 .4rem;letter-spacing:-.01em}
+h2{font-size:1.35rem;margin:2.6rem 0 .6rem;padding-top:.6rem;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4rem 0 .2rem}
+p,li{max-width:44rem}
+a{color:var(--accent)}
+.sub{font-size:1.15rem;color:var(--muted);margin:0 0 1rem}
+.authors{margin:0 0 1.2rem}
+.links{display:flex;flex-wrap:wrap;gap:.6rem;padding:0;margin:0 0 1.5rem;list-style:none}
+.links a{display:inline-block;padding:.35rem .9rem;border:1px solid var(--accent);border-radius:999px;text-decoration:none;font:600 .92rem/1.4 system-ui,sans-serif}
+.note{background:var(--band);padding:.8rem 1rem;border-radius:6px;font-size:.95rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.8rem;margin:1.2rem 0;padding:0;list-style:none}
+.facts li{border-left:3px solid var(--accent);padding:.1rem .8rem}
+.facts b{display:block;font:700 1.5rem/1.2 system-ui,sans-serif}
+.scroll{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;font:.88rem/1.4 system-ui,sans-serif;font-variant-numeric:tabular-nums;width:100%}
+caption{text-align:left;font-weight:600;padding-bottom:.4rem}
+th,td{padding:.3rem .45rem;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th[scope=row],thead th:first-child,td.l{text-align:left}
+thead th{border-bottom:2px solid var(--fg)}
+tr.grp th{text-align:left;background:var(--band);font-weight:600}
+.hw{color:var(--muted);font-size:.78em}
+td.na{color:var(--muted);font-style:italic}
+pre{background:var(--band);padding:1rem;border-radius:6px;overflow-x:auto;font-size:.82rem}
+dt{font-weight:700;margin-top:1rem}
+dd{margin:.2rem 0 0}
+footer{margin-top:3rem;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>XDecideBench</h1>
+<p class="sub">Evaluating Typed Decision Models and Confidence Policies Across Languages</p>
+<p class="authors">Marek Šuppa (Comenius University in Bratislava, Cisco Systems) and Jaroslav Kopčan (Kempelen Institute of Intelligent Technologies)</p>
+<ul class="links">
+<li><a href="https://arxiv.org/abs/2611.01370">Paper on arXiv</a></li>
+<li><a href="https://arxiv.org/pdf/2611.01370">PDF</a></li>
+<li><a href="https://github.com/NaiveNeuron/XDecideBench">GitHub</a></li>
+<li><a href="#citation">Cite</a></li>
+</ul>
+</header>
+
+<p>XDecideBench is a multilingual benchmark for <em>Typed Decision Models</em>: models that return a probability for each answer an application declares, such as one of <i>k</i> intents, yes or no, or a level on an ordinal rubric. It asks whether model rankings hold across tasks and languages, how much open decision models gain over the Qwen backbones they were fine-tuned from, and whether a confidence threshold fitted on English data keeps its error rate in other languages.</p>
+
+<ul class="facts">
+<li><b>9</b> suites</li>
+<li><b>122</b> languages</li>
+<li><b>88,425</b> texts</li>
+<li><b>153,875</b> typed questions</li>
+<li><b>11</b> Typed Decision Models</li>
+</ul>
+
+<p class="note">The code, manifests and scorer are not public yet. They will be released in the <a href="https://github.com/NaiveNeuron/XDecideBench">GitHub repository</a>.</p>
+
+<h2 id="abstract">Abstract</h2>
+<p>Applications use Typed Decision Models to route and moderate text in many languages, and they often act only on decisions above a confidence threshold. We introduce XDecideBench, a benchmark of nine suites in 122 languages with 88,425 texts and 153,875 typed questions. All suites share one scoring contract, and we report aligned, locally labelled and native items separately. Model rankings change from suite to suite. The model that is best in English, chosen in hindsight, loses significantly in about a quarter of the suite-language cells, and on Burmese Belebele it falls far behind the best model. Three open models fine-tuned for typed decisions beat the Qwen models they were built from in all twelve development languages. When the Qwen models are run locally, a pre-registered held-out cohort confirms that the accuracy gain is larger in the four languages with the least web text than in the six with the most. In both sets of languages, however, fine-tuning fixes a similar share of the base model&#x27;s errors, so the larger gain may reflect weaker base models. A confidence threshold set on English data to allow 5% errors exceeds that error rate on XNLI, even in German and French.</p>
+
+<h2 id="findings">Key findings</h2>
+<h3>Rankings change from suite to suite</h3>
+<p>Kendall τ between the Core12 ranking and the rankings on the other suites is only .33 (RTP-LX) to .64 (NLI, Injongo). GPT-6 Luna is eighth on Core12 but first on the native INCLUDE exams.</p>
+<h3>Choosing a model on English is risky</h3>
+<p>If we pick the best English model on each parallel suite, another model beats it significantly in 56 of 232 suite–language cells. On Belebele, Microsoft's Decision-1 is best in English but loses significantly in 37 of 105 languages. In Burmese it reaches Brier skill .336, against .814 for Jev.</p>
+<h3>Open decision heads beat their own backbones</h3>
+<p>Clef, Clef-flash and pplx-decider beat their Qwen backbones in all twelve Core12 languages, by 7.6 to 18.2 accuracy points under the local readout. A pre-registered held-out cohort confirms that the accuracy gain is larger in the four languages with the least web text than in the six with the most. In both groups the heads fix a similar share of the backbone's errors, so the larger gain may reflect weaker backbones.</p>
+<h3>English-fitted confidence thresholds do not transfer</h3>
+<p>A threshold set on English data for 5% errors admits 7.8–12.4% errors on German and French XNLI, and more in low-web-share languages. On MASSIVE, error rates stay near target, but the models admit fewer decisions: Jev admits 10.8% of Swahili decisions against 46.8% of English ones.</p>
+
+<h2 id="suites">Suites and languages</h2>
+<div class="scroll">
+<table>
+<caption>The nine headline suites</caption>
+<thead><tr><th scope="col">Suite</th><th scope="col" class="l">Label regime</th><th scope="col">Languages</th><th scope="col">Texts</th><th scope="col">Typed questions</th></tr></thead>
+<tbody>
+<tr><th scope="row">Core12 (MASSIVE, XNLI, Belebele, MMLU-ProX, SIB-200)</th><td class="l">Aligned</td><td>12</td><td>26,460</td><td>26,460</td></tr>
+<tr><th scope="row">Wide-Belebele</th><td class="l">Aligned</td><td>106</td><td>10,600</td><td>10,600</td></tr>
+<tr><th scope="row">MASSIVE</th><td class="l">Aligned</td><td>52</td><td>6,084</td><td>6,084</td></tr>
+<tr><th scope="row">NLI (XNLI, AfriXNLI, AmericasNLI)</th><td class="l">Aligned</td><td>37</td><td>15,222</td><td>15,222</td></tr>
+<tr><th scope="row">RTP-LX toxicity</th><td class="l">Locally labelled</td><td>38</td><td>7,600</td><td>60,800</td></tr>
+<tr><th scope="row">INCLUDE</th><td class="l">Native</td><td>44</td><td>21,079</td><td>21,079</td></tr>
+<tr><th scope="row">InjongoIntent</th><td class="l">Native</td><td>16</td><td>1,920</td><td>1,920</td></tr>
+<tr><th scope="row">Multilingual HateCheck and Aya red-teaming</th><td class="l">Native</td><td>17</td><td>2,960</td><td>2,960</td></tr>
+<tr><th scope="row">BRIGHTER emotion intensity</th><td class="l">Native</td><td>10</td><td>2,500</td><td>14,750</td></tr>
+</tbody>
+<tfoot><tr><th scope="row">All headline suites (distinct)</th><td></td><td>122</td><td>88,425</td><td>153,875</td></tr></tfoot>
+</table>
+</div>
+<p>The NLI suite reuses the 6,000 Core12 XNLI texts, so the distinct totals are lower than the column sums. Aligned suites use the same items with one label in every language, RTP-LX uses labels from local annotators, and native suites contain items written in each language for its speakers. Raw native scores are never compared across languages.</p>
+
+<h2 id="method">How models are scored</h2>
+<p>Each request declares its answers, and the model returns a probability for each. A suite is scored only when a submission covers every case. Refusals, interface limits and invalid outputs count as a uniform distribution, and the share of valid outputs is reported beside each score. The metric is the Brier skill score, BSS = 1 − BS(model) / BS(reference), with uniform chance as the reference for choice decisions and the cell's base rate for skewed yes/no and score decisions. Every mean has a 95% cluster-bootstrap interval. To test confidence policies, a risk threshold for 5% errors and a split conformal set are fitted on English data and applied in other languages.</p>
+
+<h2 id="results">Results</h2>
+<div class="scroll">
+<table>
+<caption>Brier skill per suite (higher is better, 0 is the reference). Small numbers: half-width of the 95% cluster-bootstrap interval.</caption>
+<thead><tr><th scope="col">Model</th><th scope="col">Core12</th><th scope="col">Belebele</th><th scope="col">MASSIVE</th><th scope="col">NLI</th><th scope="col">RTP-LX</th><th scope="col">INCLUDE</th><th scope="col">Injongo</th><th scope="col">Moder.</th><th scope="col">BRIGHTER</th></tr></thead>
+<tbody>
+<tr class="grp"><th colspan="10" scope="colgroup">Hosted Typed Decision Models, ordered by Core12 skill</th></tr>
+<tr><th scope="row">pplx-decider</th><td><strong>.712<span class="hw"> ±.019</span></strong></td><td>.756<span class="hw"> ±.058</span></td><td>.718<span class="hw"> ±.075</span></td><td><strong>.397<span class="hw"> ±.022</span></strong></td><td>.051<span class="hw"> ±.041</span></td><td>.536<span class="hw"> ±.009</span></td><td>.578<span class="hw"> ±.026</span></td><td><strong>.673<span class="hw"> ±.022</span></strong></td><td>.144<span class="hw"> ±.020</span></td></tr>
+<tr><th scope="row">Jev</th><td>.688<span class="hw"> ±.022</span></td><td><strong>.785<span class="hw"> ±.060</span></strong></td><td>.619<span class="hw"> ±.081</span></td><td>.128<span class="hw"> ±.030</span></td><td>−.101<span class="hw"> ±.051</span></td><td>.531<span class="hw"> ±.009</span></td><td>.499<span class="hw"> ±.024</span></td><td>.561<span class="hw"> ±.026</span></td><td>−.428<span class="hw"> ±.046</span></td></tr>
+<tr><th scope="row">Clef</th><td>.674<span class="hw"> ±.020</span></td><td>.701<span class="hw"> ±.055</span></td><td>.714<span class="hw"> ±.069</span></td><td>.254<span class="hw"> ±.023</span></td><td>.045<span class="hw"> ±.046</span>†</td><td>.459<span class="hw"> ±.009</span></td><td>.492<span class="hw"> ±.026</span></td><td>.274<span class="hw"> ±.032</span></td><td><strong>.167<span class="hw"> ±.016</span></strong></td></tr>
+<tr><th scope="row">d1</th><td>.663<span class="hw"> ±.020</span></td><td>.711<span class="hw"> ±.061</span></td><td>.634<span class="hw"> ±.073</span></td><td>.315<span class="hw"> ±.023</span></td><td>.070<span class="hw"> ±.046</span></td><td>.488<span class="hw"> ±.009</span></td><td>.481<span class="hw"> ±.024</span></td><td>.449<span class="hw"> ±.027</span></td><td>.118<span class="hw"> ±.022</span></td></tr>
+<tr><th scope="row">Decision-1</th><td>.651<span class="hw"> ±.018</span></td><td>.716<span class="hw"> ±.047</span></td><td>.721<span class="hw"> ±.059</span></td><td>.108<span class="hw"> ±.029</span></td><td>−.229<span class="hw"> ±.061</span></td><td>.400<span class="hw"> ±.011</span></td><td>.417<span class="hw"> ±.024</span></td><td>.500<span class="hw"> ±.029</span></td><td>−.375<span class="hw"> ±.040</span></td></tr>
+<tr><th scope="row">Clef-flash</th><td>.631<span class="hw"> ±.020</span></td><td>.597<span class="hw"> ±.053</span></td><td><strong>.745<span class="hw"> ±.061</span></strong></td><td>.127<span class="hw"> ±.025</span></td><td><strong>.071<span class="hw"> ±.047</span>†</strong></td><td>.385<span class="hw"> ±.009</span></td><td>.415<span class="hw"> ±.026</span></td><td>.379<span class="hw"> ±.031</span></td><td>.123<span class="hw"> ±.016</span></td></tr>
+<tr><th scope="row">Mercury</th><td>.611<span class="hw"> ±.025</span></td><td>.677<span class="hw"> ±.076</span></td><td>.651<span class="hw"> ±.087</span></td><td>.188<span class="hw"> ±.030</span></td><td>−.022<span class="hw"> ±.052</span></td><td>.411<span class="hw"> ±.011</span></td><td>.416<span class="hw"> ±.031</span></td><td>.449<span class="hw"> ±.032</span></td><td>.013<span class="hw"> ±.027</span></td></tr>
+<tr><th scope="row">Luna</th><td>.568<span class="hw"> ±.023</span>†</td><td>.743<span class="hw"> ±.073</span>†</td><td>.602<span class="hw"> ±.065</span>†</td><td>−.058<span class="hw"> ±.036</span></td><td>−.018<span class="hw"> ±.047</span>†</td><td><strong>.600<span class="hw"> ±.009</span>†</strong></td><td><strong>.580<span class="hw"> ±.018</span>†</strong></td><td>.541<span class="hw"> ±.031</span>†</td><td>−.096<span class="hw"> ±.031</span></td></tr>
+<tr><th scope="row">Kev-4B</th><td>.449<span class="hw"> ±.021</span></td><td>.389<span class="hw"> ±.091</span></td><td>.371<span class="hw"> ±.046</span></td><td>.070<span class="hw"> ±.030</span></td><td>−.169<span class="hw"> ±.051</span></td><td>.273<span class="hw"> ±.007</span></td><td>.225<span class="hw"> ±.014</span></td><td>.278<span class="hw"> ±.023</span></td><td>−.275<span class="hw"> ±.036</span></td></tr>
+<tr><th scope="row">Solar</th><td>.398<span class="hw"> ±.024</span>‡</td><td>.334<span class="hw"> ±.074</span></td><td class="na">capped</td><td>−.236<span class="hw"> ±.029</span></td><td>−.568<span class="hw"> ±.078</span></td><td>.251<span class="hw"> ±.013</span></td><td class="na">capped</td><td>−.046<span class="hw"> ±.058</span></td><td>−1.396<span class="hw"> ±.077</span></td></tr>
+<tr class="grp"><th colspan="10" scope="colgroup">Local Typed Decision Model</th></tr>
+<tr><th scope="row">Laya</th><td>.119<span class="hw"> ±.022</span>†</td><td>−.167<span class="hw"> ±.057</span>†</td><td>−.120<span class="hw"> ±.069</span></td><td>−.206<span class="hw"> ±.033</span></td><td>−1.647<span class="hw"> ±.118</span></td><td>−.085<span class="hw"> ±.006</span>†</td><td>−.096<span class="hw"> ±.014</span></td><td>−.415<span class="hw"> ±.057</span></td><td>−2.907<span class="hw"> ±.128</span></td></tr>
+<tr class="grp"><th colspan="10" scope="colgroup">Backbone readouts (hosted)</th></tr>
+<tr><th scope="row">Qwen3.8-27B</th><td>.584<span class="hw"> ±.024</span></td><td>.678<span class="hw"> ±.065</span></td><td>.523<span class="hw"> ±.088</span></td><td>.043<span class="hw"> ±.035</span></td><td>−.336<span class="hw"> ±.073</span></td><td>.426<span class="hw"> ±.010</span></td><td>.405<span class="hw"> ±.028</span></td><td>.397<span class="hw"> ±.031</span></td><td>−.056<span class="hw"> ±.028</span></td></tr>
+<tr><th scope="row">Qwen3.5-9B</th><td>.477<span class="hw"> ±.022</span></td><td>.525<span class="hw"> ±.077</span></td><td>.313<span class="hw"> ±.091</span></td><td>−.036<span class="hw"> ±.029</span></td><td>−.562<span class="hw"> ±.086</span></td><td>.310<span class="hw"> ±.010</span></td><td>.167<span class="hw"> ±.029</span></td><td>.347<span class="hw"> ±.029</span></td><td>−.034<span class="hw"> ±.027</span></td></tr>
+<tr class="grp"><th colspan="10" scope="colgroup">Comparators</th></tr>
+<tr><th scope="row">MP-EG2</th><td>−.084<span class="hw"> ±.029</span></td><td>−.284<span class="hw"> ±.097</span></td><td>.347<span class="hw"> ±.058</span></td><td>−.997<span class="hw"> ±.039</span></td><td>−1.363<span class="hw"> ±.116</span></td><td>−.242<span class="hw"> ±.010</span></td><td>.054<span class="hw"> ±.010</span></td><td>−.004<span class="hw"> ±.021</span></td><td>−1.166<span class="hw"> ±.068</span></td></tr>
+<tr><th scope="row">MP-GLiNER</th><td>.057<span class="hw"> ±.015</span>†</td><td>−.066<span class="hw"> ±.048</span>‡</td><td>.029<span class="hw"> ±.037</span></td><td>.010<span class="hw"> ±.007</span></td><td>−.984<span class="hw"> ±.081</span></td><td>−.034<span class="hw"> ±.005</span>†</td><td>.032<span class="hw"> ±.008</span>†</td><td>.076<span class="hw"> ±.021</span></td><td>−.807<span class="hw"> ±.044</span></td></tr>
+</tbody>
+</table>
+</div>
+<p>Bold: best hosted Typed Decision Model per suite. †: valid-output coverage below 1. ‡: partly over an interface cap. “Capped”: every item exceeds Solar's option limit. Suites differ in reference and population, so scores should not be compared across columns. Laya ran on its own copies of the suite manifests. Source: the main results table of <a href="https://arxiv.org/abs/2611.01370">the paper</a>.</p>
+
+<h2 id="models">Evaluated models</h2>
+<div class="scroll">
+<table>
+<caption>The eleven Typed Decision Models</caption>
+<thead><tr><th scope="col">Model</th><th scope="col" class="l">Access</th><th scope="col" class="l">Backbone</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="https://developers.cloudflare.com/changelog/post/2026-10-01-clef-workers-ai/">Clef</a></th><td class="l">local, API</td><td class="l">Qwen3.8-27B (locally verified)</td></tr>
+<tr><th scope="row"><a href="https://developers.cloudflare.com/changelog/post/2026-10-01-clef-workers-ai/">Clef-flash</a></th><td class="l">local, API</td><td class="l">Qwen3.5-9B (locally verified)</td></tr>
+<tr><th scope="row"><a href="https://openrouter.ai/perplexity/pplx-decider-v1.1-27b">pplx-decider v1.1</a></th><td class="l">API</td><td class="l">Qwen3.8-27B (stated by vendor)</td></tr>
+<tr><th scope="row"><a href="https://commandline.microsoft.com/microsoft-decision-1-model-foundry/">Microsoft Decision-1</a></th><td class="l">API</td><td class="l">Qwen3.5-9B (stated by vendor)</td></tr>
+<tr><th scope="row"><a href="https://github.com/jaredpalmer/kev">Kev-4B</a></th><td class="l">API</td><td class="l">Qwen3.5-4B (stated by vendor)</td></tr>
+<tr><th scope="row"><a href="https://huggingface.co/convaiinnovations/laya">Laya-multilingual</a></th><td class="l">local</td><td class="l">mmBERT-base</td></tr>
+<tr><th scope="row"><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Jev 1.13</a></th><td class="l">API</td><td class="l">undisclosed</td></tr>
+<tr><th scope="row"><a href="https://developers.openai.com/api/docs/guides/decisions">GPT-6 Luna Decisions</a></th><td class="l">API</td><td class="l">undisclosed</td></tr>
+<tr><th scope="row"><a href="https://openrouter.ai/liquid/d1">Liquid d1</a></th><td class="l">API</td><td class="l">undisclosed</td></tr>
+<tr><th scope="row"><a href="https://openrouter.ai/inception/mercury-decide">Mercury Decide</a></th><td class="l">API</td><td class="l">undisclosed</td></tr>
+<tr><th scope="row"><a href="https://openrouter.ai/upstage/solar-decide">Solar Decide</a></th><td class="l">API</td><td class="l">undisclosed</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="related">How XDecideBench differs from other decision-model benchmarks</h2>
+<p>Earlier studies evaluate one Typed Decision Model across languages, or several models in English. Deußer et al. evaluate Jev alone on 37 datasets in many languages. JevBench, S1MB and Decision Index compare several models in English, and system-one-benchmark compares five models in eight languages on choice decisions only. XDecideBench runs eleven models on the same multilingual items for all three decision types, reports aligned and native evidence separately, pairs open heads with their own backbones, and tests whether English-fitted confidence policies transfer across languages.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<dl>
+<dt>Is there a benchmark for Typed Decision Models such as Jev in languages other than English?</dt>
+<dd>Yes. XDecideBench scores Jev and ten other Typed Decision Models on the same items in 122 languages. Jev is second on Core12 and best on Wide-Belebele, but below the base rate on RTP-LX and BRIGHTER.</dd>
+<dt>Which decision model is best for multilingual classification or routing?</dt>
+<dd>No single model is best everywhere. pplx-decider leads Core12, Jev leads Wide-Belebele, Clef-flash leads MASSIVE intent routing and GPT-6 Luna leads the native INCLUDE exams. The paper recommends choosing on suites that match your decision type and setting.</dd>
+<dt>Can I choose a model on English results and deploy it in other languages?</dt>
+<dd>Not safely. The best model in English loses significantly in about a quarter of suite–language cells.</dd>
+<dt>Can I fit a confidence threshold on English data and reuse it in other languages?</dt>
+<dd>Not without checking. A threshold set for 5% errors on English admits 7.8–12.4% errors on German and French XNLI, and more in languages with less web text. On MASSIVE it keeps the error rate but admits fewer decisions.</dd>
+<dt>How does XDecideBench handle low-resource languages?</dt>
+<dd>Wide-Belebele (106 languages), the NLI family (37, including AfriXNLI and AmericasNLI) and InjongoIntent (16 African languages) reach languages with very little web text. The pre-registered head–backbone analysis covers only the twelve Core12 languages, and only Swahili among them lies below tier 3 of the Joshi et al. taxonomy.</dd>
+<dt>Do fine-tuned decision models beat the LLMs they were built from?</dt>
+<dd>In this panel, yes. Clef, Clef-flash and pplx-decider beat their Qwen backbones in all twelve Core12 languages, with larger accuracy gains in low-web-share languages but a similar share of errors fixed.</dd>
+<dt>Can I score my own model?</dt>
+<dd>Not yet. The scorer and manifests will be released in the GitHub repository.</dd>
+</dl>
+
+<h2 id="citation">Citation</h2>
+<pre>@misc{suppa2026xdecidebench,
+  title         = {{XDecideBench}: Evaluating Typed Decision Models and Confidence Policies Across Languages},
+  author        = {{\v{S}}uppa, Marek and Kop{\v{c}}an, Jaroslav},
+  year          = {2026},
+  eprint        = {2611.01370},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2611.01370}
+}</pre>
+
+<footer>
+<p>Numbers on this page are taken from <a href="https://arxiv.org/abs/2611.01370">arXiv:2611.01370</a> (v1). If they ever differ, the paper is authoritative.</p>
+</footer>
+</main>
+</body>
+</html>
